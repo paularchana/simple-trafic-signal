@@ -17,7 +17,7 @@ final color AMBER= color(255, 194, 0);
 final color GREEN = color(0, 220, 0);
 float rectX = 550; 
 float rectY = 500;
-int likha;
+
 
 
 void setup(){
@@ -34,7 +34,7 @@ void setup(){
  
  lightBoard2Width = 100;
  lightBoard2Height = 150;
-  likha = 0 ;
+  
   
   drawRoad();
 }
@@ -53,20 +53,28 @@ void draw(){
 
   lightBoard(light1X, light1Y, lightBoard1Width, lightBoard1Height);
   float d = drawCircle(light1X, light1Y, lightBoard1Width, lightBoard1Height);
- 
   amberOn(d);
   greenOn(d);
   redOn(d);
   
-  //lightBoard(light2X, light2Y, light2Width, light2Height);
-  //drawCircle(light2X, light2Y, light2Width, light2Height);
+ 
+   lightBoard(light2X, light2Y, lightBoard2Width, lightBoard2Height);
+  float c = drawCircle2(light2X, light2Y, lightBoard2Width, lightBoard2Height);
   
   
+   amber2On(c);
+  green2On(c);
+  red2On(c);
  
 }// DRAW
-void redOn(float dynamic_diam){
+void redOn(float dynamic_diam ){
   fill(RED);
   ellipse(light1X, light1Y - dynamic_diam , dynamic_diam, dynamic_diam);
+}
+
+void red2On(float dynamic2_diam ){
+  fill(RED);
+  ellipse(light2X, light2Y - dynamic2_diam , dynamic2_diam, dynamic2_diam);
 }
 
 
@@ -75,15 +83,36 @@ void amberOn(float dynamic_diam){
   ellipse(light1X, light1Y , dynamic_diam, dynamic_diam);
 }
 
+void amber2On(float dynamic2_diam){
+  fill(AMBER);
+  ellipse(light2X, light2Y , dynamic2_diam, dynamic2_diam);
+}
+
 void greenOn(float dynamic_diam){
   fill(GREEN);
   ellipse(light1X, light1Y + dynamic_diam , dynamic_diam, dynamic_diam);
 }
 
+void green2On(float dynamic2_diam){
+  fill(GREEN);
+  ellipse(light2X, light2Y + dynamic2_diam , dynamic2_diam, dynamic2_diam);
+}
 
 //test
 
 float drawCircle(float k, float g, float boxWidth, float boxHeight) { 
+  float circle_Diam = (boxHeight/boxWidth) * 20;
+  float circle_Distance = (boxHeight/boxWidth) * 20;
+  
+
+  ellipse(k, g, circle_Diam, circle_Diam); //amber
+  ellipse(k, g + circle_Distance, circle_Diam, circle_Diam); //green
+  ellipse(k, g - circle_Distance, circle_Diam, circle_Diam); //red
+  
+  return circle_Diam;
+}
+
+float drawCircle2(float k, float g, float boxWidth, float boxHeight) { 
   float circle_Diam = (boxHeight/boxWidth) * 20;
   float circle_Distance = (boxHeight/boxWidth) * 20;
   
