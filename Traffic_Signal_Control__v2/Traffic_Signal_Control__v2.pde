@@ -11,12 +11,14 @@ float lightBoard1Height;
 float lightBoard2Width;
 float lightBoard2Height;
 
-final color BG_COLOR = color(255, 255, 255);
+final color WHITE = color(255, 255, 255);
+final color BG_COLOR = WHITE;
 final color RED=color(255, 0, 0);
 final color AMBER= color(255, 194, 0);
 final color GREEN = color(0, 220, 0);
 float rectX = 550; 
 float rectY = 500;
+int start;
 
 
 
@@ -34,68 +36,100 @@ void setup(){
  
  lightBoard2Width = 100;
  lightBoard2Height = 150;
+ start =0;
+// greenDuration = 10;
   
-  
-  drawRoad();
+    
 }
 
 
 void draw(){
-  //frameRate(1);
-  //background(BG_COLOR);
-  //textSize(50);
-  //fill(0);
-  //text(likha, 100, 100);
-  ////println(0);
-   
+    
+
+  frameRate(1);
+  background(BG_COLOR);
   
+  
+  drawRoad();
+  textSize(100);
+  fill(0);
+  text(start, 100, 100);
+ 
   
 
   lightBoard(light1X, light1Y, lightBoard1Width, lightBoard1Height);
   float d = drawCircle(light1X, light1Y, lightBoard1Width, lightBoard1Height);
-  amberOn(d);
-  greenOn(d);
-  redOn(d);
+ 
+  
   
  
-   lightBoard(light2X, light2Y, lightBoard2Width, lightBoard2Height);
-  float c = drawCircle2(light2X, light2Y, lightBoard2Width, lightBoard2Height);
+  if(start < 10){
+    greenOn(light1X, light1Y, d);
+  }
+  
+  if(start >= 10 && start < 12 ){
+    amberOn(light1X, light1Y, d);
+  }
+  
+  if(start >=12 && start < 18){
+     redOn(light1X, light1Y, d);
+  }
+  
+ 
+  if(start == 17){
+    start = 0;
+  }
+   start++;
   
   
-   amber2On(c);
-  green2On(c);
-  red2On(c);
+  //amberOn(light1X, light1Y, d);
+  //redOn(light1X, light1Y, d);
+  
+  
+ 
+  //lightBoard(light2X, light2Y, lightBoard2Width, lightBoard2Height);
+  //float c = drawCircle(light2X, light2Y, lightBoard2Width, lightBoard2Height);
+  
+  //amberOn(light2X, light2Y, c);
+  //greenOn(light2X, light2Y, c);
+  //redOn(light2X, light2Y, c);
+    
+    
+    
+ //if(start < 5){
+ //   greenOn(d);
+ // } 
+ // if(start >= 5  && start < 7){
+ //   amberOn(d);
+ //  }
+ // if( start >= 7 && start < 10 ){
+ //   redOn(light1X, light2X, d);
+ // }
+  
+ // start++;
+  
+  
+  
+  //if(start == 9 ){
+  //  start = 0;
+  //}
+  
  
 }// DRAW
-void redOn(float dynamic_diam ){
+
+void redOn(float x, float y, float dynamic_diam ){
   fill(RED);
-  ellipse(light1X, light1Y - dynamic_diam , dynamic_diam, dynamic_diam);
+  ellipse(x, y - dynamic_diam , dynamic_diam, dynamic_diam);
 }
 
-void red2On(float dynamic2_diam ){
-  fill(RED);
-  ellipse(light2X, light2Y - dynamic2_diam , dynamic2_diam, dynamic2_diam);
-}
-
-
-void amberOn(float dynamic_diam){
+void amberOn(float x, float y,float dynamic_diam){
   fill(AMBER);
-  ellipse(light1X, light1Y , dynamic_diam, dynamic_diam);
+  ellipse( x, y, dynamic_diam, dynamic_diam);
 }
 
-void amber2On(float dynamic2_diam){
-  fill(AMBER);
-  ellipse(light2X, light2Y , dynamic2_diam, dynamic2_diam);
-}
-
-void greenOn(float dynamic_diam){
+void greenOn(float x, float y, float dynamic_diam){
   fill(GREEN);
-  ellipse(light1X, light1Y + dynamic_diam , dynamic_diam, dynamic_diam);
-}
-
-void green2On(float dynamic2_diam){
-  fill(GREEN);
-  ellipse(light2X, light2Y + dynamic2_diam , dynamic2_diam, dynamic2_diam);
+  ellipse(x ,y  + dynamic_diam , dynamic_diam, dynamic_diam);
 }
 
 //test
@@ -104,19 +138,7 @@ float drawCircle(float k, float g, float boxWidth, float boxHeight) {
   float circle_Diam = (boxHeight/boxWidth) * 20;
   float circle_Distance = (boxHeight/boxWidth) * 20;
   
-
-  ellipse(k, g, circle_Diam, circle_Diam); //amber
-  ellipse(k, g + circle_Distance, circle_Diam, circle_Diam); //green
-  ellipse(k, g - circle_Distance, circle_Diam, circle_Diam); //red
-  
-  return circle_Diam;
-}
-
-float drawCircle2(float k, float g, float boxWidth, float boxHeight) { 
-  float circle_Diam = (boxHeight/boxWidth) * 20;
-  float circle_Distance = (boxHeight/boxWidth) * 20;
-  
-
+  fill(BG_COLOR);
   ellipse(k, g, circle_Diam, circle_Diam); //amber
   ellipse(k, g + circle_Distance, circle_Diam, circle_Diam); //green
   ellipse(k, g - circle_Distance, circle_Diam, circle_Diam); //red
@@ -147,13 +169,11 @@ void lightBoard(float x, float y, float quadWidth, float quadHeight){
   bX - distance, bY+ distance, 
   cX - distance, cY - distance, 
   dX + distance, dY - distance);
-  
-  
 }
 
-
-
 void drawRoad(){
+  
+  fill(BG_COLOR);
   rect(0, 0, width/2 -150, height/2-80);
   rect(0, rectY, width/2 -150, height/2+80);
   rect(rectX, 0, width/2 +50, height/2-80);
