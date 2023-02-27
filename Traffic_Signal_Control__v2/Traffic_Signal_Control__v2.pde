@@ -54,7 +54,6 @@ void setup(){
 
 void draw(){
     
-
   frameRate(1);
   background(BG_COLOR);
   
@@ -64,8 +63,10 @@ void draw(){
   fill(0);
   int remainingTime = (int)(green1 - currentTime);
   println(remainingTime);
-  int remainingTime1 = (int)(currentTime - green1+amber);
-  int remainingTime2 = (int)(currentTime - green1 + amber+red1);
+  int remainingTime1 = (int)( green1+amber - currentTime );
+  println(remainingTime1);
+  int remainingTime2 = (int)(green1 + amber+red1 - currentTime);
+  println(remainingTime2);
  
   
 
