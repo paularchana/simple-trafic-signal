@@ -11,6 +11,8 @@ float lightBoard1Height;
 float lightBoard2Width;
 float lightBoard2Height;
 
+float green1, red1, amber, green2, red2;
+
 final color WHITE = color(255, 255, 255);
 final color BG_COLOR = WHITE;
 final color RED=color(255, 0, 0);
@@ -18,13 +20,20 @@ final color AMBER= color(255, 194, 0);
 final color GREEN = color(0, 220, 0);
 float rectX = 550; 
 float rectY = 500;
-int start;
-
-
+int currentTime;
 
 void setup(){
-  
  size(800, 800);
+ green1 = 10;
+ red1 = 6;
+ 
+ amber = 2;
+ 
+ red2 = green1;
+ green2 = red1;
+ 
+ 
+ 
  light1X= width/2;
  light1Y= height/4.5;
  
@@ -36,7 +45,7 @@ void setup(){
  
  lightBoard2Width = 100;
  lightBoard2Height = 150;
- start =0;
+ currentTime = 0;
 // greenDuration = 10;
   
     
@@ -51,70 +60,58 @@ void draw(){
   
   
   drawRoad();
-  textSize(100);
+  textSize(50);
   fill(0);
-  text(start, 100, 100);
+  int remainingTime = (int)(green1 - currentTime);
+  println(remainingTime);
+  int remainingTime1 = (int)(currentTime - green1+amber);
+  int remainingTime2 = (int)(currentTime - green1 + amber+red1);
  
   
 
+  
   lightBoard(light1X, light1Y, lightBoard1Width, lightBoard1Height);
   float d = drawCircle(light1X, light1Y, lightBoard1Width, lightBoard1Height);
  
-  
-  
- 
-  if(start < 10){
+  if(currentTime < green1){
     greenOn(light1X, light1Y, d);
+    text("Signal Changes in " + remainingTime, 100, 600);
   }
   
-  if(start >= 10 && start < 12 ){
+  if(currentTime >= green1 && currentTime < green1+amber ){
     amberOn(light1X, light1Y, d);
+    text("Signal Changes in " + remainingTime1, 100, 600);
   }
   
-  if(start >=12 && start < 18){
+  if(currentTime >= green1 + amber && currentTime < green1 + amber+red1){
      redOn(light1X, light1Y, d);
+      text("Signal Changes in " + remainingTime2, 100, 600);
   }
   
  
-  if(start == 17){
-    start = 0;
+  lightBoard(light2X, light2Y, lightBoard2Width, lightBoard2Height);
+  float c = drawCircle(light2X, light2Y, lightBoard2Width, lightBoard2Height);
+  
+  if(currentTime < red2 + amber ){
+     redOn(light2X, light2Y, c);
   }
-   start++;
   
+  if(currentTime >= red2+amber && currentTime < red2 + green2){
+     greenOn(light2X, light2Y, c);
+  }
   
-  //amberOn(light1X, light1Y, d);
-  //redOn(light1X, light1Y, d);
+  if(currentTime >= red2 + green2 && currentTime < red2+ green2+amber ){
+    amberOn(light2X, light2Y, c);
+  }
+  
   
   
  
-  //lightBoard(light2X, light2Y, lightBoard2Width, lightBoard2Height);
-  //float c = drawCircle(light2X, light2Y, lightBoard2Width, lightBoard2Height);
-  
-  //amberOn(light2X, light2Y, c);
-  //greenOn(light2X, light2Y, c);
-  //redOn(light2X, light2Y, c);
-    
-    
-    
- //if(start < 5){
- //   greenOn(d);
- // } 
- // if(start >= 5  && start < 7){
- //   amberOn(d);
- //  }
- // if( start >= 7 && start < 10 ){
- //   redOn(light1X, light2X, d);
- // }
-  
- // start++;
-  
-  
-  
-  //if(start == 9 ){
-  //  start = 0;
-  //}
-  
- 
+  if(currentTime == 17){
+    currentTime = 0;
+  }
+   currentTime ++;
+   
 }// DRAW
 
 void redOn(float x, float y, float dynamic_diam ){
