@@ -76,17 +76,17 @@ void draw(){
  
   if(currentTime < green1){
     greenOn(light1X, light1Y, d);
-    text("Signal Changes in " + remainingTime, 100, 600);
+    text("Signal " + remainingTime, 300, 35);
   }
   
   if(currentTime >= green1 && currentTime < green1+amber ){
     amberOn(light1X, light1Y, d);
-    text("Signal Changes in " + remainingTime1, 100, 600);
+    text("Signal" + remainingTime1, 300, 35);
   }
   
   if(currentTime >= green1 + amber && currentTime < green1 + amber+red1){
      redOn(light1X, light1Y, d);
-      text("Signal Changes in " + remainingTime2, 100, 600);
+      text("Signal" + remainingTime2, 300, 35);
   }
   
  
